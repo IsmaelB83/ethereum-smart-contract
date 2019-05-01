@@ -1,0 +1,26 @@
+{
+  "name": "concerts",
+  "version": "1.0.0",
+  "description": "Ejemplo de smart contract en solidity",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "truffle": "^5.0.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsmaelB83/ethereum-smart-contract.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsmaelB83/ethereum-smart-contract/issues"
+  },
+  "homepage": "https://github.com/IsmaelB83/ethereum-smart-contract#readme"
+}

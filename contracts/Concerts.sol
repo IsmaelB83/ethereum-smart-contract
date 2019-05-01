@@ -10,7 +10,7 @@ import './Pausable.sol';
 //  - Ownable
 //  - Pausable
 // Events
-contract Concert is Pausable{
+contract Concert is Pausable {
 
     string public concertName;
     uint public ticketPrice;
@@ -22,14 +22,18 @@ contract Concert is Pausable{
         ticketPrice = _etherPrice * 1 ether;       
     }
 
+    function isAccountCustomer(address _account) public view onlyOwner returns (bool) {
+        return _isCustomer(_account);
+    }
+
     function buyTicket() payable public {
-        require(msg.value == ticketPrice, "Incorrect price");
+        require(msg.value == ticketPrice, "IncorrectPrice");
         if (!_isCustomer(msg.sender)) {
             // Si no es customer ==> Puede comprar
             _setPurchaseStatus(msg.sender, true);
         } else {
             // Si es customer ==> Revertir
-            revert("Already client");
+            revert("AlreadyClient");
         }
     }
 
@@ -39,6 +43,12 @@ contract Concert is Pausable{
 
     function refundTicketToAccount(address payable _account) payable public isCustomer validAccount(_account) {
         _refundTicket(_account);
+    }
+
+    function transferTicket(address _to) public isCustomer validAccount(_to) {
+        require(!_isCustomer(_to), "AlreadyCustomer");
+ 		_setPurchaseStatus(msg.sender, false);
+        _setPurchaseStatus(_to , true);
     }
 
     function _refundTicket (address payable _account) private {
